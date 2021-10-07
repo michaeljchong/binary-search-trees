@@ -29,19 +29,26 @@ class Tree
   end
 
   def delete(value, node = @root)
-    # return unless find(value)
+    return node if node.nil?
 
-    # if value < node.data
+    if value < node.data
+      node.left = delete(value, node.left)
+    elsif value > node.data
+      node.right = delete(value, node.right)
+    else
+      return node.right if node.left.nil?
+      return node.left if node.right.nil?
 
-    # if node.left.nil? && node.right.nil?
-    #   # delete leaf
-    # elsif node.left.nil?
-    #   node = node.right
-    #   node.right = nil
-    # elsif node.right.nil?
-    #   node = node.left
-    #   node.left = nil
-    # end
+      node.data = min_value(node.right)
+      node.right = delete(node.data, node.right)
+    end
+    node
+  end
+
+  def min_value(node)
+    return node.data if node.left.nil?
+
+    minValue(node.left)
   end
 
   def find(value, node = @root)
@@ -55,9 +62,10 @@ end
 
 data1 = [1, 4, 6, 8]
 data2 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-tree = Tree.new(data1)
+tree = Tree.new(data2)
 p tree.find(6345)
-tree.insert(7)
+tree.insert(6)
 p tree.find(6)
+tree.delete(7)
 p tree.find(7)
 p tree
