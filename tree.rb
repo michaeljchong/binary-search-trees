@@ -58,14 +58,27 @@ class Tree
 
     find(value, node.right)
   end
+
+  def level_order(values = [], queue = [@root])
+    return values if queue.empty?
+
+    value = queue.shift
+    values << value.data
+    queue << value.left unless value.left.nil?
+    queue << value.right unless value.right.nil?
+    level_order(values, queue)
+  end
 end
 
 data1 = [1, 4, 6, 8]
 data2 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+data3 = [1, 2, 3, 4, 5, 6, 7]
 tree = Tree.new(data2)
-p tree.find(6345)
-tree.insert(6)
-p tree.find(6)
-tree.delete(7)
-p tree.find(7)
-p tree
+# p tree.find(6345)
+# tree.insert(6)
+# p tree.find(6)
+# tree.delete(7)
+# p tree.find(7)
+
+tree3 = Tree.new(data3)
+p tree3.level_order
