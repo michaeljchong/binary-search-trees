@@ -69,14 +69,19 @@ class Tree
     values
   end
 
-  def inorder
+  def inorder(values = [], node = @root)
+    return if node.nil?
 
+    inorder(values, node.left)
+    values << node.data
+    inorder(values, node.right)
+    values
   end
 end
 
 data1 = [1, 4, 6, 8]
 data2 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-data3 = [1, 2, 3, 4, 5, 6, 7]
+data3 = [3, 4, 1, 7, 2, 6, 5]
 tree = Tree.new(data2)
 # p tree.find(6345)
 # tree.insert(6)
@@ -86,3 +91,5 @@ tree = Tree.new(data2)
 
 tree3 = Tree.new(data3)
 p tree3.level_order
+p tree3.inorder
+p tree3.preorder
