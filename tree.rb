@@ -77,6 +77,15 @@ class Tree
     inorder(values, node.right)
     values
   end
+
+  def preorder(values = [], node = @root)
+    return if node.nil?
+
+    values << node.data
+    preorder(values, node.left)
+    preorder(values, node.right)
+    values
+  end
 end
 
 data1 = [1, 4, 6, 8]
