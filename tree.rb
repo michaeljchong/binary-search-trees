@@ -68,6 +68,10 @@ class Tree
     end
     values
   end
+
+  def inorder
+
+  end
 end
 
 data1 = [1, 4, 6, 8]
