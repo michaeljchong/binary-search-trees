@@ -86,6 +86,15 @@ class Tree
     preorder(values, node.right)
     values
   end
+
+  def postorder(values = [], node = @root)
+    return if node.nil?
+
+    postorder(values, node.left)
+    postorder(values, node.right)
+    values << node.data
+    values
+  end
 end
 
 data1 = [1, 4, 6, 8]
@@ -102,3 +111,4 @@ tree3 = Tree.new(data3)
 p tree3.level_order
 p tree3.inorder
 p tree3.preorder
+p tree3.postorder
