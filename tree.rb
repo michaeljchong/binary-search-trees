@@ -60,13 +60,13 @@ class Tree
   end
 
   def level_order(values = [], queue = [@root])
-    return values if queue.empty?
-
-    value = queue.shift
-    values << value.data
-    queue << value.left unless value.left.nil?
-    queue << value.right unless value.right.nil?
-    level_order(values, queue)
+    until queue.empty?
+      value = queue.shift
+      values << value.data
+      queue << value.left unless value.left.nil?
+      queue << value.right unless value.right.nil?
+    end
+    values
   end
 end
 
