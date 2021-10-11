@@ -61,10 +61,10 @@ class Tree
 
   def level_order(values = [], queue = [@root])
     until queue.empty?
-      value = queue.shift
-      values << value.data
-      queue << value.left unless value.left.nil?
-      queue << value.right unless value.right.nil?
+      node = queue.shift
+      values << node.data
+      queue << node.left unless node.left.nil?
+      queue << node.right unless node.right.nil?
     end
     values
   end
@@ -95,20 +95,29 @@ class Tree
     values << node.data
     values
   end
+
+  def height(node)
+    # binding.pry
+    return 0 if node.nil?
+
+    left_height = height(node.left)
+    right_height = height(node.right)
+    left_height >= right_height ? 1 + left_height : 1 + right_height
+  end
+
+  def pretty_print(node = @root, prefix = '', is_left = true)
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+  end
 end
 
-data1 = [1, 4, 6, 8]
-data2 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-data3 = [3, 4, 1, 7, 2, 6, 5]
-tree = Tree.new(data2)
-# p tree.find(6345)
-# tree.insert(6)
-# p tree.find(6)
-# tree.delete(7)
-# p tree.find(7)
-
-tree3 = Tree.new(data3)
-p tree3.level_order
-p tree3.inorder
-p tree3.preorder
-p tree3.postorder
+data = [76, 53, 92, 27, 68, 90, 99, 8, 33, 62, 82, 96]
+data1 = Array.new(15) { rand(1..100) }
+tree = Tree.new(data)
+tree.pretty_print
+p tree.height(tree.find(53))
+p tree.level_order
+p tree.inorder
+p tree.preorder
+p tree.postorder
