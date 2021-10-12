@@ -118,6 +118,10 @@ class Tree
     balanced?(node.left) && balanced?(node.right)
   end
 
+  def rebalance
+    @root = build_tree(level_order.sort)
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -137,6 +141,9 @@ tree.insert(200)
 tree.insert(300)
 tree.pretty_print
 p tree.balanced?
+tree.rebalance
+p tree.balanced?
+tree.pretty_print
 p tree.level_order
 p tree.inorder
 p tree.preorder
