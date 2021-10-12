@@ -129,22 +129,23 @@ class Tree
   end
 end
 
-data = [76, 53, 92, 27, 68, 90, 99, 8, 33, 62, 82, 96]
-data1 = Array.new(15) { rand(1..100) }
-tree = Tree.new(data)
+tree = Tree.new(Array.new(15) { rand(1..100) })
 tree.pretty_print
-p tree.height(tree.find(53))
-p tree.depth(tree.find(27))
-tree.insert(2)
-tree.insert(100)
+p tree.balanced?
+p tree.level_order
+p tree.preorder
+p tree.inorder
+p tree.postorder
+tree.insert(110)
+tree.insert(180)
 tree.insert(200)
 tree.insert(300)
 tree.pretty_print
 p tree.balanced?
 tree.rebalance
-p tree.balanced?
 tree.pretty_print
+p tree.balanced?
 p tree.level_order
-p tree.inorder
 p tree.preorder
+p tree.inorder
 p tree.postorder
