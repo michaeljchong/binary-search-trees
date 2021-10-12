@@ -54,9 +54,7 @@ class Tree
   def find(value, node = @root)
     return node if node.nil? || node.data == value
 
-    return find(value, node.left) if value < node.data
-
-    find(value, node.right)
+    value < node.data ? find(value, node.left) : find(value, node.right)
   end
 
   def level_order(values = [], queue = [@root])
@@ -97,12 +95,18 @@ class Tree
   end
 
   def height(node)
-    # binding.pry
-    return 0 if node.nil?
+    return -1 if node.nil?
 
     left_height = height(node.left)
     right_height = height(node.right)
-    left_height >= right_height ? 1 + left_height : 1 + right_height
+    left_height > right_height ? 1 + left_height : 1 + right_height
+  end
+
+  def depth(node, current_node = @root, depth = 0)
+    return 0 if node.nil?
+    return depth if current_node == node
+
+    node.data < current_node.data ? depth(node, current_node.left, depth + 1) : depth(node, current_node.right, depth + 1)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -117,6 +121,7 @@ data1 = Array.new(15) { rand(1..100) }
 tree = Tree.new(data)
 tree.pretty_print
 p tree.height(tree.find(53))
+p tree.depth(tree.find(27))
 p tree.level_order
 p tree.inorder
 p tree.preorder
